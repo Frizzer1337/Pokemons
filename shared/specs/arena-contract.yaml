@@ -1,0 +1,80 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Swagger
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8000/v1
+paths:
+  /arena:
+    get:
+      summary: list all available arenas
+      operationId: listArena
+      description: List all available arenas
+      responses:
+        '200':
+          description: A paged array of arenas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Arenas"
+    post:
+      summary: saves a arena
+      operationId: saveArena
+      description: Saves a arena
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArenaDto"
+      responses:
+        '200':
+          description: Arena was successfully saved
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+  '/arena/{id}':
+    get:
+      summary: Find arena by id
+      operationId: findArenaById
+      description: Returns arena with given id
+      parameters:
+        - name: id
+          in: path
+          description: ID of arena to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Arena with given id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArenaDto"
+        '400':
+          description: Invalid id
+        '404':
+          description: Arena not found
+
+components:
+  schemas:
+    ArenaDto:
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          nullable: true
+        name:
+          type: string
+    Arenas:
+      type: array
+      items:
+        $ref: "#/components/schemas/ArenaDto"
