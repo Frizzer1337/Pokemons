@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  license:
+    name: MIT
+  title: Swagger
+  version: 1.0.0
+servers:
+- url: http://localhost:8000/v1
+paths:
+  /arena:
+    get:
+      description: List all available arenas
+      operationId: listArena
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Arenas"
+          description: A paged array of arenas
+      summary: list all available arenas
+    post:
+      description: Saves a arena
+      operationId: saveArena
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArenaDto"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int64
+                type: integer
+          description: Arena was successfully saved
+      summary: saves a arena
+  /arena/{id}:
+    get:
+      description: Returns arena with given id
+      operationId: findArenaById
+      parameters:
+      - description: ID of arena to return
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArenaDto"
+          description: Arena with given id
+        "400":
+          description: Invalid id
+        "404":
+          description: Arena not found
+      summary: Find arena by id
+components:
+  schemas:
+    ArenaDto:
+      example:
+        name: name
+        id: 0
+      properties:
+        id:
+          format: int64
+          nullable: true
+          type: integer
+        name:
+          type: string
+      required:
+      - name
+    Arenas:
+      items:
+        $ref: "#/components/schemas/ArenaDto"
+      type: array

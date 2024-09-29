@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: trainer-api
+  jackson:
+    default-property-inclusion: non_null
+  r2dbc:
+    username: "postgres"
+    password: "1"
+    url: r2dbc:postgresql://localhost:5432/pokemon
+server:
+  port: 8001
