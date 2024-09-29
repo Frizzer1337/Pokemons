@@ -15,19 +15,15 @@
 
 package com.devtools.frizzer.api.pokemon
 
-import com.fasterxml.jackson.annotation.JsonProperty
-
-import org.springframework.web.reactive.function.client.WebClient
-import org.springframework.web.reactive.function.client.WebClientResponseException
-import org.springframework.http.codec.json.Jackson2JsonDecoder
-import org.springframework.http.codec.json.Jackson2JsonEncoder
-import org.springframework.http.ResponseEntity
-import org.springframework.http.MediaType
-import reactor.core.publisher.Mono
-import org.springframework.util.LinkedMultiValueMap
-
 import com.devtools.frizzer.model.PokemonDto
 import org.openapitools.client.infrastructure.*
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.http.codec.json.Jackson2JsonDecoder
+import org.springframework.http.codec.json.Jackson2JsonEncoder
+import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.WebClientResponseException
+import reactor.core.publisher.Mono
 
 class DefaultApi(client: WebClient) : ApiClient(client) {
 
