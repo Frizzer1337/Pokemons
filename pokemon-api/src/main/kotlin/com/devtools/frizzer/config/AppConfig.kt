@@ -5,6 +5,7 @@ import com.devtools.frizzer.controller.PokemonController
 import com.devtools.frizzer.service.PokemonService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod.POST
 import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.ServerHttpSecurity
@@ -27,7 +28,7 @@ class AppConfig(
         http.oauth2ResourceServer { oauth2 -> oauth2.jwt(Customizer.withDefaults()) }
         return http.authorizeExchange { c ->
             c.pathMatchers("/error").permitAll()
-                .pathMatchers("/v1/trainer").hasRole("ROLE_TRAINER")
+                .pathMatchers(POST,"/v1/pokemon/").hasRole("ROLE_TRAINER")
                 .anyExchange().authenticated()
         }
             .build()
