@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head><title>Header</title></head>
+<body>
+<header class="header">
+    <div class="header-item">
+        <a th:href="@{/}"><img class="header-logo" th:src="@{/img/logo.png}" alt="logo"></a>
+    </div>
+    <div class="header-item">
+        <a th:href="@{/pokemon}">Pokemon</a>
+    </div>
+    <div class="header-item">
+        <a th:href="@{/arena}">Arena</a>
+    </div>
+    <div class="header-item">
+        <a th:href="@{/trainer}">Trainer</a>
+    </div>
+</header>
+</body>
+</html>

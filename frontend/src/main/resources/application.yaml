@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: frontend
+  security:
+    oauth2:
+      client:
+        provider:
+          pokemon:
+            issuer-uri: http://localhost:8080/realms/pokemon
+        registration:
+          keycloak:
+            provider: pokemon
+            authorization-grant-type: authorization_code
+            client-id: spring-security
+            client-secret: 2zXVGrm1MJqZEl5tDoZeopRGvhrAtB3m
+            scope: openid
+server:
+  port: 8100

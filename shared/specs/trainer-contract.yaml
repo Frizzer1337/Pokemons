@@ -1,0 +1,103 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Swagger
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8001/v1
+paths:
+  /trainer:
+    get:
+      summary: list all available trainers
+      operationId: listTrainers
+      description: List all available trainers
+      responses:
+        '200':
+          description: A paged array of trainers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Trainers"
+    post:
+      summary: saves a trainer
+      operationId: saveTrainer
+      description: Saves a trainer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainerDto"
+      responses:
+        '200':
+          description: Pokemon was successfully saved
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+  '/trainer/{trainerId}':
+    get:
+      summary: Find trainer by id
+      operationId: findTrainerById
+      description: Returns trainer with given id
+      parameters:
+        - name: trainerId
+          in: path
+          description: ID of trainer to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A paged array of trainers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainerResponseDto"
+        '400':
+          description: Invalid id
+        '404':
+          description: Trainer not found
+
+components:
+  schemas:
+    TrainerDto:
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          nullable: true
+        name:
+          type: string
+        pokemonId:
+          type: integer
+          format: int64
+          nullable: true
+        arenaId:
+          type: integer
+          format: int64
+          nullable: true
+    TrainerResponseDto:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          nullable: true
+        name:
+          type: string
+        pokemon:
+          $ref: "contract.yaml#/components/schemas/PokemonDto"
+        arena:
+          $ref: "arena-contract.yaml#/components/schemas/ArenaDto"
+    Trainers:
+      type: array
+      items:
+        $ref: "#/components/schemas/TrainerDto"
